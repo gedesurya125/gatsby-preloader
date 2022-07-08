@@ -111,10 +111,10 @@ const Layout = ({ children, pageContext }) => {
   React.useEffect(() => {
     console.log('hi i am called');
     var body = document.querySelector('body');
-    // body.classList.add('preloader_ready');
+    body.classList.add('preloader_ready');
     setTimeout(function () {
-      // body.classList.remove('preloader_active');
-      // body.classList.remove('preloader_ready');
+      body.classList.remove('preloader_active');
+      body.classList.remove('preloader_ready');
     }, 500);
   }, []);
   return (
@@ -122,8 +122,8 @@ const Layout = ({ children, pageContext }) => {
       <Box key="preloader" id="preloader">
         {/* <canvas id="rive-canvas"></canvas> */}
         <RiveContainer
-          // src="/delivery.riv"
-          src="https://cdn.rive.app/animations/off_road_car_v7.riv"
+          src="/delivery.riv"
+          // src="https://cdn.rive.app/animations/off_road_car_v7.riv"
           sx={{ width: '300px', height: '300px', overflow: 'hidden' }}
         />
       </Box>
