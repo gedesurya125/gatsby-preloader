@@ -1,0 +1,23 @@
+[
+  {
+    "legal": {
+      "company": "The Puzzlers UG (haftungsbeschränkt)",
+      "headOfCompany": "Damian Hutter",
+      "address": {
+        "street": "Pappelallee 78/79",
+        "city": "10437 Berlin"
+      },
+      "tel": "+49 (0)30 629 335 15",
+      "ustid": "DE305962731",
+      "email": "legal@thepuzzlers.io",
+      "commercialRegister": {
+        "court": "",
+        "number": ""
+      },
+      "organicCertification": {
+        "certification": "",
+        "controlAgency": ""
+      }
+    }
+  }
+]
