@@ -5,14 +5,10 @@ import { CoreLayout } from 'gatsby-theme-thepuzzlers-core';
 import { Box } from '@thepuzzlers/pieces';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { RiveContainer } from 'components/RiveContainer';
 import { RuntimeLoader } from '@rive-app/react-canvas';
 
 // Context
-import {
-  usePreloaderEnd,
-  PreloaderEndProvider
-} from 'context/PreloaderEndContext';
+import { PreloaderEndProvider } from 'context/PreloaderEndContext';
 
 // Sections
 import { Footer, Navigation } from '../sections';
@@ -118,7 +114,6 @@ const Layout = ({ children, pageContext }) => {
   return (
     <>
       <PreloaderEndProvider>
-        <PagePreload />
         <CoreLayout pageContext={pageContext}>
           <Navigation />
           <div id="smooth-wrapper">
@@ -149,25 +144,3 @@ Layout.propTypes = {
 };
 
 export default Layout;
-
-const PagePreload = () => {
-  const { setIsPreloaderEnd } = usePreloaderEnd();
-  return (
-    <Box key="preloader" id="preloader">
-      <RiveContainer
-        src="/delivery.riv"
-        // src="https://cdn.rive.app/animations/off_road_car_v7.riv"
-        sx={{ width: '300px', height: '300px', overflow: 'hidden' }}
-        onLoop={() => {
-          var body = document.querySelector('body');
-          body.classList.add('preloader_ready');
-          setIsPreloaderEnd(true);
-          setTimeout(function () {
-            body.classList.remove('preloader_active');
-            body.classList.remove('preloader_ready');
-          }, 500);
-        }}
-      />
-    </Box>
-  );
-};
