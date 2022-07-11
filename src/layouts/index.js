@@ -110,7 +110,6 @@ const Layout = ({ children, pageContext }) => {
   return (
     <>
       <Box key="preloader" id="preloader">
-        {/* <canvas id="rive-canvas"></canvas> */}
         <RiveContainer
           src="/delivery.riv"
           // src="https://cdn.rive.app/animations/off_road_car_v7.riv"
