@@ -107,16 +107,6 @@ const Layout = ({ children, pageContext }) => {
     // store in data attribute that fontsize is already configured
     pageRootElement.dataset.fontIsConfigured = true;
   }
-
-  React.useEffect(() => {
-    console.log('hi i am called');
-    var body = document.querySelector('body');
-    body.classList.add('preloader_ready');
-    setTimeout(function () {
-      body.classList.remove('preloader_active');
-      body.classList.remove('preloader_ready');
-    }, 500);
-  }, []);
   return (
     <>
       <Box key="preloader" id="preloader">
