@@ -1,17 +1,9 @@
 import React from 'react';
 
-import {
-  useRive,
-  Layout,
-  Fit,
-  Alignment
-  // RuntimeLoader
-} from '@rive-app/react-canvas';
+import { useRive, Layout, Fit, Alignment } from '@rive-app/react-canvas';
 import { Box } from '@thepuzzlers/pieces';
 
-// RuntimeLoader.setWasmUrl('http://localhost:8000/rive.wasm');
-
-export const RiveContainer = ({ src, sx }) => {
+export const RiveContainer = ({ src, sx, onLoop = () => {} }) => {
   const { setCanvasRef, setContainerRef } = useRive({
     src,
     autoplay: true,
@@ -19,15 +11,7 @@ export const RiveContainer = ({ src, sx }) => {
       fit: Fit.FitWidth,
       alignment: Alignment.Center
     }),
-    onLoop: () => {
-      console.log('hi i am called');
-      var body = document.querySelector('body');
-      body.classList.add('preloader_ready');
-      setTimeout(function () {
-        body.classList.remove('preloader_active');
-        body.classList.remove('preloader_ready');
-      }, 500);
-    }
+    onLoop
   });
 
   return (
@@ -36,8 +20,6 @@ export const RiveContainer = ({ src, sx }) => {
       sx={{
         position: 'relative',
         overflow: 'hidden',
-        // width: '200px',
-        // height: '200px',
         ...sx
       }}>
       <Box

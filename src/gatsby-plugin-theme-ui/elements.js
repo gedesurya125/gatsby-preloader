@@ -12,6 +12,11 @@ const links = {
   hyperLink: {
     ...linkDefault,
     variant: 'typography.hyperLink.normal',
+    fontSize: '2rem',
+    textAlign: 'center',
+    display: 'block',
+    mt: '3rem',
+    color: 'secondary',
     ':hover,:focus,active': {}
   },
   navigation: {

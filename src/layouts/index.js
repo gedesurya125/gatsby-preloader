@@ -6,6 +6,13 @@ import { Box } from '@thepuzzlers/pieces';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { RiveContainer } from 'components/RiveContainer';
+import { RuntimeLoader } from '@rive-app/react-canvas';
+
+// Context
+import {
+  usePreloaderEnd,
+  PreloaderEndProvider
+} from 'context/PreloaderEndContext';
 
 // Sections
 import { Footer, Navigation } from '../sections';
@@ -13,6 +20,7 @@ import { Footer, Navigation } from '../sections';
 import 'gatsby-plugin-theme-ui/fonts/fontImports';
 
 gsap.registerPlugin(ScrollTrigger);
+RuntimeLoader.setWasmUrl(`${process.env.HOSTNAME}/rive.wasm`);
 
 const Layout = ({ children, pageContext }) => {
   let fontSizeFactor = 1;
@@ -109,33 +117,29 @@ const Layout = ({ children, pageContext }) => {
   }
   return (
     <>
-      <Box key="preloader" id="preloader">
-        <RiveContainer
-          src="/delivery.riv"
-          // src="https://cdn.rive.app/animations/off_road_car_v7.riv"
-          sx={{ width: '300px', height: '300px', overflow: 'hidden' }}
-        />
-      </Box>
-      <CoreLayout pageContext={pageContext}>
-        <Navigation />
-        <div id="smooth-wrapper">
-          <div id="smooth-content">
-            <Box
-              as="main"
-              sx={{
-                position: 'relative',
-                bg: 'background',
-                overflow: 'hidden'
-              }}>
-              {children}
-            </Box>
-            <Footer />
+      <PreloaderEndProvider>
+        <PagePreload />
+        <CoreLayout pageContext={pageContext}>
+          <Navigation />
+          <div id="smooth-wrapper">
+            <div id="smooth-content">
+              <Box
+                as="main"
+                sx={{
+                  position: 'relative',
+                  bg: 'background',
+                  overflow: 'hidden'
+                }}>
+                {children}
+              </Box>
+              <Footer />
+            </div>
           </div>
-        </div>
-        <Helmet>
-          <style type="text/css">{mediaQueries}</style>
-        </Helmet>
-      </CoreLayout>
+          <Helmet>
+            <style type="text/css">{mediaQueries}</style>
+          </Helmet>
+        </CoreLayout>
+      </PreloaderEndProvider>
     </>
   );
 };
@@ -145,3 +149,25 @@ Layout.propTypes = {
 };
 
 export default Layout;
+
+const PagePreload = () => {
+  const { setIsPreloaderEnd } = usePreloaderEnd();
+  return (
+    <Box key="preloader" id="preloader">
+      <RiveContainer
+        src="/delivery.riv"
+        // src="https://cdn.rive.app/animations/off_road_car_v7.riv"
+        sx={{ width: '300px', height: '300px', overflow: 'hidden' }}
+        onLoop={() => {
+          var body = document.querySelector('body');
+          body.classList.add('preloader_ready');
+          setIsPreloaderEnd(true);
+          setTimeout(function () {
+            body.classList.remove('preloader_active');
+            body.classList.remove('preloader_ready');
+          }, 500);
+        }}
+      />
+    </Box>
+  );
+};

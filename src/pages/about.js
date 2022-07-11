@@ -2,16 +2,16 @@ import React from 'react';
 
 import { SEO } from 'gatsby-theme-thepuzzlers-intl';
 import { injectIntl } from 'gatsby-theme-thepuzzlers-intl';
-import { Header } from 'sections';
+import { AboutHeader } from 'sections';
 
 // Local Components
 
-const Home = () => {
+const About = () => {
   return (
     <>
       <SEO title="Home" />
-      <Header />
+      <AboutHeader />
     </>
   );
 };
-export default injectIntl(Home);
+export default injectIntl(About);
